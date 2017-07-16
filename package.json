@@ -35,10 +35,12 @@
     "dotenv": "^4.0.0",
     "heroku": "^0.2.0",
     "request": "^2.81.0",
+    "sentencer": "^0.1.5",
     "snyk": "^1.17.5",
     "twit": "^2.2.9",
     "unique-random-array": "^1.0.0",
-    "unirest": "0.5.1"
+    "unirest": "0.5.1",
+    "wordpos": "^1.1.5"
   },
   "snyk": true
 }

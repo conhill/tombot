@@ -2,6 +2,9 @@ const Twit = require('twit')
 const unique = require('unique-random-array')
 const config = require('../config')
 const request = require('request')
+var Sentencer = require('sentencer')
+var WordPOS = require('wordpos'),
+    wordpos = new WordPOS();
 
 const param = config.twitterConfig
 const queryString = unique(param.queryString.split(','))
@@ -13,62 +16,46 @@ const retweet = () => {
     const query = queryString()
 
 
-    var checkTweet = function(nytArt, callback) {
+    //var userID = '15251843';
 
-        var options = {
-            screen_name: 'ringobot3000',
-            count: 15
-        };
-        bot.get('statuses/user_timeline', options, function(err, data) {
-            //For the length of NYT articles, check current tweets
-            var found = false;
-            for (var i = 0; i < nytArt.length; i++) {
-                for (var x = 0; x < data.length; x++) {
-                    if (nytArt[i].snippet.slice(0, 40).indexOf(data[x].text.slice(0, 40)) !== -1) {
-                        found = true;
-                    }
+    var userID = '45733259';
+
+
+    var stream = bot.stream('statuses/filter', { follow: ( userID ) });
+
+    stream.on('tweet', function (tweet) {
+
+        if (tweet.user.id == userID && tweet.in_reply_to_status_id === null && tweet.in_reply_to_status_id_str === null && tweet.in_reply_to_user_id === null && tweet.in_reply_to_user_id_str === null && tweet.in_reply_to_screen_name === null && tweet.text.indexOf('@') === -1) {
+            var finalTweet = '';
+            var splitTweet = tweet.text.split(' ');
+            var adjs = [];
+            //The angry bear chased the frightened little squirrel.
+
+            wordpos.getAdjectives(tweet.text).then(function (foundAdj){
+                for(var i = 0; i < foundAdj.length; i+=2){
+                    var adjSentence = splitTweet.indexOf(foundAdj[i])
+                    splitTweet[adjSentence] = "{{ adjective }}"
                 }
-                if(found === false){
-                    callback(nytArt[i]);
-                    return;
-                }
-            }
-            callback('');
-            return;
-        })
-    }
 
-    var tweetThis = function() {
-        request.get({
-            url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
-            qs: {
-                'api-key': "fca6d877b0354be1b1006d1d4091d3d7",
-                'q': "trump",
-                'sort': "newest",
-                'fl': "web_url,snippet"
-            },
-        }, function(err, response, body) {
-            body = JSON.parse(body);
-            var tweet = '';
+                wordpos.getNouns(splitTweet.join(" ")).then(function(foundNoun){
+                    for(var x = 0; x < foundNoun.length; x+=2){
+                        var nounSentence = splitTweet.indexOf(foundNoun[x])
+                        splitTweet[nounSentence] = "{{ noun }}"
+                    }  
 
-            //use checkTweet to get a tweet against current tweets
-            checkTweet(body.response.docs, function(goodTweet) {
-                if(goodTweet !== ''){
-                    tweet = goodTweet.snippet.slice(0, 80) + '... ' + goodTweet.web_url;
+                    finalTweet = Sentencer.make(splitTweet.join(" "));
 
-                    if(tweet.length > 140){
-                        tweet = goodTweet.snippet.slice(0, 60) + '... ' + goodTweet.web_url;
-                    }
-                    bot.post('statuses/update', { status: tweet }, function(err, data, response) {
-                        console.log(data);
-                    })
-                }
+                     bot.post('statuses/update', { status: finalTweet }, function(err, data, response) {
+                         console.log(finalTweet);
+                     })
+                })
             });
 
-        })
-    }
-    tweetThis();
-    setInterval(tweetThis, 3600000);
+        } else {
+            console.log(tweet.user.id + " - " + tweet.user.screen_name)
+        }
+    });
+
 }
 
 module.exports = retweet
