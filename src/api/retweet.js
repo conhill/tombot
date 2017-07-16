@@ -1,7 +1,7 @@
 const Twit = require('twit')
 const unique = require('unique-random-array')
 const config = require('../config')
-const request = require('request')
+// const request = require('request')
 var Sentencer = require('sentencer')
 var WordPOS = require('wordpos'),
     wordpos = new WordPOS();
