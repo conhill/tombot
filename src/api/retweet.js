@@ -18,7 +18,7 @@ const retweet = () => {
 
     //var userID = '15251843';
 
-    var userID = '45733259';
+    var userID = '15251843';
 
 
     var stream = bot.stream('statuses/filter', { follow: ( userID ) });
