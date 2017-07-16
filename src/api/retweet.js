@@ -7,13 +7,13 @@ var WordPOS = require('wordpos'),
     wordpos = new WordPOS();
 
 const param = config.twitterConfig
-const queryString = unique(param.queryString.split(','))
+// const queryString = unique(param.queryString.split(','))
 
 const bot = new Twit(config.twitterKeys)
 
 const retweet = () => {
 
-    const query = queryString()
+    // const query = queryString()
 
 
     //var userID = '15251843';
