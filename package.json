@@ -1,0 +1,44 @@
+{
+  "name": "ringobot",
+  "version": "0.2.1",
+  "description": "[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](http://standardjs.com/) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](http://opensource.org/licenses/MIT)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "snyk test && standard && node index.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect",
+    "deploy": "now -E"
+  },
+  "now": {
+    "alias": "twitter-bot-bootstrap"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spences10/twitter-bot-bootstrap.git"
+  },
+  "keywords": [
+    "twitter",
+    "bot",
+    "bootstrap"
+  ],
+  "author": "Scott Spence <spences10apps@gmail.com> (https://spences10.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spences10/twitter-bot-bootstrap/issues"
+  },
+  "homepage": "https://github.com/spences10/twitter-bot-bootstrap#readme",
+  "devDependencies": {
+    "standard": "10.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "heroku": "^0.2.0",
+    "request": "^2.81.0",
+    "snyk": "^1.17.5",
+    "twit": "^2.2.9",
+    "unique-random-array": "^1.0.0",
+    "unirest": "0.5.1"
+  },
+  "snyk": true
+}

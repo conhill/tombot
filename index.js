@@ -1,1 +1,1 @@
-start
+require('./src/bot')
