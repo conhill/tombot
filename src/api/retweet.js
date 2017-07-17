@@ -1,10 +1,9 @@
 const Twit = require('twit')
 const unique = require('unique-random-array')
 const config = require('../config')
-var express = require('express');
-var app     = express();
 
-app.set('port', (process.env.PORT || 5000));
+
+http.createServer(onRequest).listen(process.env.PORT || 6000)
 // const request = require('request')
 var Sentencer = require('sentencer')
 var WordPOS = require('wordpos'),
