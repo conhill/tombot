@@ -3,7 +3,8 @@ const unique = require('unique-random-array')
 const config = require('../config')
 
 
-http.createServer(onRequest).listen(process.env.PORT || 6000)
+var port = process.env.PORT || CONFIG.port;
+app.listen(port);
 // const request = require('request')
 var Sentencer = require('sentencer')
 var WordPOS = require('wordpos'),
