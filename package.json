@@ -1,5 +1,5 @@
 {
-  "name": "ringobot",
+  "name": "tombot",
   "version": "0.2.1",
   "description": "[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](http://standardjs.com/) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](http://opensource.org/licenses/MIT)",
   "main": "index.js",
@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "dotenv": "^4.0.0",
+    "express": "^4.15.3",
     "heroku": "^0.2.0",
     "request": "^2.81.0",
     "sentencer": "^0.1.5",
